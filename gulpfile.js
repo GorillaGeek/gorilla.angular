@@ -1,5 +1,5 @@
 // Include gulp
-var gulp = require("gulp"); 
+var gulp = require("gulp");
 
 // Include Our Plugins
 var jshint = require("gulp-jshint");
@@ -10,13 +10,16 @@ var clean = require("gulp-clean");
 var sourcemaps = require("gulp-sourcemaps");
 
 var jsFiles = [
-    "lib/foolproof/jquery.validate.unobtrusive.foolproof.js",
     "src/*/**.js"
 ];
 
 gulp.task("clean", function() {
-    return gulp.src(["dist/gorilla.utilities.angular.min.js"], {read: false})
-        .pipe(clean({force: true}));
+    return gulp.src(["dist/gorilla.angular.min.js"], {
+            read: false
+        })
+        .pipe(clean({
+            force: true
+        }));
 });
 
 gulp.task("lint", function() {
@@ -29,7 +32,7 @@ gulp.task("minify", ["lint"], function() {
     return gulp.src(jsFiles)
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(concat("gorilla.utilities.min.js"))
+        .pipe(concat("gorilla.angular.min.js"))
         .pipe(gulp.dest("dist"));
 });
 
