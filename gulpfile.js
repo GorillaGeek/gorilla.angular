@@ -10,6 +10,7 @@ var clean = require("gulp-clean");
 var sourcemaps = require("gulp-sourcemaps");
 
 var jsFiles = [
+    "src/gorilla.angular.js",
     "src/*/**.js"
 ];
 

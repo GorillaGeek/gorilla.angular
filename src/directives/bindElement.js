@@ -7,11 +7,9 @@
     function directive() {
         return {
             restrict: "A",
-            scope: {
-                bindElement: "="
-            },
-            link: function($scope, element) {
-                $scope.bindElement = element;
+            scope: false,
+            link: function($scope, element, attrs) {
+                $scope[attrs.bindElement] = element;
             }
         };
     }
