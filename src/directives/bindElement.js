@@ -1,7 +1,7 @@
 (function(angular) {
     "use strict";
 
-    angular.module("gorilla", [])
+    angular.module("gorilla")
         .directive("bindElement", [directive]);
 
     function directive() {
