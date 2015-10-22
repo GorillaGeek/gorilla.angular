@@ -9,28 +9,29 @@ var rename = require("gulp-rename");
 var clean = require("gulp-clean");
 var sourcemaps = require("gulp-sourcemaps");
 
-var jsFiles = [
+var coreFiles = [
     "src/gorilla.angular.js",
-    "src/*/**.js"
+    "src/boostrap/gorilla.angular.bootstrap.js",
+    "src/*/**.js",
+    "src/*/*/**.js",
 ];
 
 gulp.task("clean", function() {
     return gulp.src(["dist/gorilla.angular.min.js"], {
-            read: false
-        })
-        .pipe(clean({
-            force: true
-        }));
+        read: false
+    }).pipe(clean({
+        force: true
+    }));
 });
 
 gulp.task("lint", function() {
-    return gulp.src(jsFiles)
+    return gulp.src(coreFiles)
         .pipe(jshint())
         .pipe(jshint.reporter("default"));
 });
 
 gulp.task("minify", ["lint"], function() {
-    return gulp.src(jsFiles)
+    return gulp.src(coreFiles)
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(concat("gorilla.angular.min.js"))
@@ -38,7 +39,7 @@ gulp.task("minify", ["lint"], function() {
 });
 
 gulp.task("watch", function() {
-    gulp.watch(jsFiles, ["minify"]);
+    gulp.watch(coreFiles, ["minify"]);
 });
 
 // Default Task
