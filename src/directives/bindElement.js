@@ -2,14 +2,15 @@
     "use strict";
 
     angular.module("gorilla")
-        .directive("bindElement", [directive]);
+        .directive("bindElement", ["$parse", directive]);
 
-    function directive() {
+    function directive($parse) {
         return {
             restrict: "A",
             scope: false,
             link: function($scope, element, attrs) {
-                $scope[attrs.bindElement] = element;
+                var model = $parse(attrs.bindElement);
+                model.assign($scope, element);
             }
         };
     }
