@@ -10,6 +10,7 @@
             scope: false,
             link: function($scope, element, attrs) {
                 var model = $parse(attrs.bindElement);
+                eval("delete $scope." + attrs.bindElement);
                 model.assign($scope, element);
             }
         };
