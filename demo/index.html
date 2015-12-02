@@ -1,38 +1,42 @@
 <html ng-app="app">
 
-<head>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+  <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.2/ui-bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.2/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.2/ui-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.2/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
-  <script src="../dist/gorilla.angular.min.js"></script>
-  <script>
-    angular.module("app", ["gorilla", "gorilla.bootstrap"])
-      .controller("index", ["$scope", "gorilla.modal", function($scope, modal) {
-        $scope.alert = function() {
-          modal.alert("test").then(function() {
-            alert("alert");
-          });
-        }
+    <script src="../dist/gorilla.angular.min.js"></script>
+    <script>
+      angular.module("app", ["gorilla", "gorilla.bootstrap"])
+        .controller("index", ["$scope", "gorilla.modal", function($scope, modal) {
+          $scope.alert = function() {
+            modal.alert("test").then(function() {
+              alert("alert");
+            });
+          }
 
-        $scope.confirm = function() {
-          modal.confirm("test").then(function() {
-            alert("ok confirm");
-          }).catch(function() {
-            alert("cancel confirm");
-          });
-        }
-      }]);
-  </script>
-</head>
+          $scope.confirm = function() {
+            modal.confirm("test").then(function() {
+              alert("ok confirm");
+            }).catch(function() {
+              alert("cancel confirm");
+            });
+          }
+        }]);
+    </script>
+  </head>
 
-<body ng-controller="index">
-  <button class="btn btn-info" ng-click="alert()">Alert</button>
-  <button class="btn btn-info" ng-click="confirm()">confirm</button>
-</body>
+  <body ng-controller="index">
+    <button class="btn btn-info" ng-click="alert()">Alert</button>
+    <button class="btn btn-info" ng-click="confirm()">confirm</button>
+
+
+    <input type=text google-places ng-model="place" />
+  </body>
 
 </html>

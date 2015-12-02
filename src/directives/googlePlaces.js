@@ -1,104 +1,52 @@
 (function(angular) {
-    "use strict";
+	"use strict";
 
-    angular.module("gorilla")
-        .directive("googlePlaces", [directive]);
+	angular.module("gorilla")
+		.directive("googlePlaces", ["googleAddress", directive]);
 
-    function directive() {
+	function directive(GoogleAddress) {
 
-        if (!window.google) {
-            $.getScript("https://maps.googleapis.com/maps/api/js?libraries=places&callback=callbackGoogleMaps");
-            window.callbackGoogleMaps = function() {};
-        }
+		return {
+			restrict: "A",
+			scope: {
+				callback: "&googlePlaces",
+				ngModel: "=",
+				address: "="
+			},
+			link: function(scope, elem) {
+				if (!window.google || !window.google.maps || !window.google.maps.places) {
+					throw "You need link the google maps js file with places to use google-address directive";
+				}
 
-        return {
-            restrict: "A",
-            scope: {
-                callback: "&googlePlaces",
-                ngModel: "="
-            },
-            link: function(scope, elem) {
-                scope.window = window;
+				var autocomplete = new google.maps.places.Autocomplete(elem[0]);
+				elem.attr("autocomplete", "off");
 
-                scope.$watch("window.google", function(google) {
-                    if (!google) return;
+				google.maps.event.addListener(autocomplete, "place_changed", function() {
+					var place = autocomplete.getPlace();
 
-                    var autocomplete = new google.maps.places.Autocomplete(elem[0]);
-                    elem.attr("autocomplete", "off");
+					if (!place.geometry) {
+						return;
+					}
 
-                    var component = {
-                        street_number: {
-                            name: 'number',
-                            type: 'short_name'
-                        },
-                        route: {
-                            name: 'address',
-                            type: 'long_name'
-                        },
-                        locality: {
-                            name: 'city',
-                            type: 'long_name'
-                        },
-                        administrative_area_level_1: {
-                            name: 'state',
-                            type: 'short_name'
-                        },
-                        postal_code: {
-                            name: 'zipCode',
-                            type: 'short_name'
-                        },
-                        neighborhood: {
-                            name: 'neighborhood',
-                            type: 'short_name'
-                        },
-                        country: {
-                            name: 'country',
-                            type: 'short_name'
-                        }
-                    };
+					var info = new GoogleAddress(place);
+					scope.ngModel = info.local;
 
-                    google.maps.event.addListener(autocomplete, "place_changed", function() {
-                        var place = autocomplete.getPlace();
+					scope.callback({
+						$value: info
+					});
 
-                        if (!place.geometry) {
-                            return;
-                        }
+					scope.$apply();
+				});
 
-                        var info = {
-                            local: place.formatted_address,
-                            latitude: place.geometry.location.lat(),
-                            longitude: place.geometry.location.lng()
-                        };
+				elem.keydown(function(e) {
+					var code = e.keyCode || e.which;
 
-                        for (var i = 0; i < place.address_components.length; i++) {
-                            var componentInfo = component[place.address_components[i].types[0]];
-
-                            if (!componentInfo) {
-                                continue;
-                            }
-
-                            info[componentInfo.name] = place.address_components[i][componentInfo.type];
-                        }
-
-                        scope.ngModel = place.formatted_address;
-
-                        scope.callback({
-                            $value: info
-                        });
-                        scope.$apply();
-                    });
-
-                    elem.keydown(function(e) {
-                        var code = e.keyCode || e.which;
-
-                        if (code === 13) {
-                            e.preventDefault();
-                        }
-                    });
-
-                });
-            }
-        };
-    }
+					if (code === 13) {
+						e.preventDefault();
+					}
+				});
+			}
+		};
+	}
 
 })(angular);
