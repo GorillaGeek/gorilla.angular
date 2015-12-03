@@ -10,37 +10,37 @@ var clean = require("gulp-clean");
 var sourcemaps = require("gulp-sourcemaps");
 
 var coreFiles = [
-  "src/gorilla.angular.js",
-  "src/boostrap/gorilla.angular.bootstrap.js",
-  "src/*/**.js",
-  "src/*/*/**.js",
+	"src/gorilla.angular.js",
+	"src/boostrap/gorilla.angular.bootstrap.js",
+	"src/*/**.js",
+	"src/*/*/**.js",
 ];
 
 gulp.task("clean", function() {
-  return gulp.src(["dist/gorilla.angular.min.js"], {
-    read: false
-  }).pipe(clean({
-    force: true
-  }));
+	return gulp.src(["dist/gorilla.angular.min.js"], {
+		read: false
+	}).pipe(clean({
+		force: true
+	}));
 });
 
 gulp.task("lint", function() {
-  return gulp.src(coreFiles)
-    .pipe(jshint())
-    .pipe(jshint.reporter("default"));
+	return gulp.src(coreFiles)
+		.pipe(jshint())
+		.pipe(jshint.reporter("default"));
 });
 
 gulp.task("minify", ["lint"], function() {
-  return gulp.src(coreFiles)
-    .pipe(sourcemaps.init())
-    .pipe(uglify())
-    .pipe(concat("gorilla.angular.min.js"))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest("dist"));
+	return gulp.src(coreFiles)
+		.pipe(sourcemaps.init())
+		.pipe(uglify())
+		.pipe(concat("gorilla.angular.min.js"))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest("dist"));
 });
 
 gulp.task("watch", function() {
-  gulp.watch(coreFiles, ["minify"]);
+	gulp.watch(coreFiles, ["minify"]);
 });
 
 // Default Task

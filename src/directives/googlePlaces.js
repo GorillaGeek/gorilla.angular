@@ -29,7 +29,6 @@
 					}
 
 					var info = new GoogleAddress(place);
-					scope.ngModel = info.local;
 
 					scope.callback({
 						$value: info
@@ -38,11 +37,11 @@
 					scope.$apply();
 				});
 
-				elem.keydown(function(e) {
+				elem.bind('keydown keyup', function(e) {
 					var code = e.keyCode || e.which;
 
 					if (code === 13) {
-						e.stopPropagation();
+						e.preventDefault();
 					}
 				});
 			}
