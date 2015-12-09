@@ -1,6 +1,6 @@
 {
-	"name": "gorilla.utilities.angular",
-	"version": "1.1.1",
+	"name": "gorilla.angular",
+	"version": "1.1.2",
 	"homepage": "https://github.com/danieloprado/gorilla.utilities.angular",
 	"main": "dist/gorilla.utilities.angular.min.js",
 	"authors": [
