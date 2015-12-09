@@ -1,29 +1,29 @@
 {
-  "name": "gorilla.utilities.angular",
-  "version": "1.1.0",
-  "homepage": "https://github.com/danieloprado/gorilla.utilities.angular",
-  "main": "dist/gorilla.utilities.angular.min.js",
-  "authors": [
-    "danieloprado <danieloprado@outlook.com>"
-  ],
-  "description": "Utilities Angular for Gorilla Geek development",
-  "keywords": [
-    "utilities",
-    "js",
-    "angular"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jquery": ">=1.11",
-    "angular": ">=1.4.1",
-    "gorilla": "~1.1.2"
-  },
-  "moduleType": []
+	"name": "gorilla.utilities.angular",
+	"version": "1.1.1",
+	"homepage": "https://github.com/danieloprado/gorilla.utilities.angular",
+	"main": "dist/gorilla.utilities.angular.min.js",
+	"authors": [
+		"danieloprado <danieloprado@outlook.com>"
+	],
+	"description": "Utilities Angular for Gorilla Geek development",
+	"keywords": [
+		"utilities",
+		"js",
+		"angular"
+	],
+	"license": "MIT",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"jquery": ">=1.11",
+		"angular": ">=1.4.1",
+		"gorilla": "~1.1.2"
+	},
+	"moduleType": []
 }
