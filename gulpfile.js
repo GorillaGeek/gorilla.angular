@@ -9,39 +9,34 @@ var rename = require("gulp-rename");
 var clean = require("gulp-clean");
 var sourcemaps = require("gulp-sourcemaps");
 
-var coreFiles = [
+var jsFiles = [
 	"src/gorilla.angular.js",
 	"src/boostrap/gorilla.angular.bootstrap.js",
 	"src/*/**.js",
 	"src/*/*/**.js",
 ];
 
-gulp.task("clean", function() {
-	return gulp.src(["dist/gorilla.angular.min.js"], {
-		read: false
-	}).pipe(clean({
-		force: true
-	}));
+gulp.task("default", ["minify"], function() {
+	return gulp.src(jsFiles)
+		.pipe(concat("gorilla.angular.js"))
+		.pipe(gulp.dest("dist"));
+});
+
+gulp.task("watch", ['default'], function() {
+	gulp.watch(jsFiles, ["default"]);
 });
 
 gulp.task("lint", function() {
-	return gulp.src(coreFiles)
+	return gulp.src(jsFiles)
 		.pipe(jshint())
 		.pipe(jshint.reporter("default"));
 });
 
 gulp.task("minify", ["lint"], function() {
-	return gulp.src(coreFiles)
+	return gulp.src(jsFiles)
 		.pipe(sourcemaps.init())
 		.pipe(uglify())
 		.pipe(concat("gorilla.angular.min.js"))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest("dist"));
 });
-
-gulp.task("watch", function() {
-	gulp.watch(coreFiles, ["minify"]);
-});
-
-// Default Task
-gulp.task("default", ["minify"]);
